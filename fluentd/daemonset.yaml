@@ -33,7 +33,7 @@ spec:
             value: /var/log/containers/fluent*
         resources:
           limits:
-            memory: 512Mi
+            memory: 250Mi
           requests:
             cpu: 100m
             memory: 200Mi
