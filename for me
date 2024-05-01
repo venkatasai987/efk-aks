@@ -1,0 +1,8 @@
+es:
+cretes a es cluster with 3 nodes and one pod on each node .volumeMounts: Mounts volumes into the container.
+initContainers: Specifies one or more containers to run before the main container(s) start. These containers are used for setting up necessary configurations before the Elasticsearch container starts.
+volumeClaimTemplates: Defines a template for volume claims that pods in the StatefulSet can use .to store data
+provision PersistentVolumes for each Pod managed by the StatefulSet (ex:storage: 1Gi each pod in StatefulSet will get 1Gi)
+They define a template for creating PersistentVolumeClaims (PVCs), which are then used to dynamically provision PersistentVolumes (PVs) as needed.
+---------------
+fd:
