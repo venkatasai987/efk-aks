@@ -19,3 +19,22 @@ we can setup different types env based on our requirement
 volumeMounts: readOnly: true
 This is usually desirable for log collection purposes to prevent accidental modification of log files.
 ------------------------
+/etc/fluent/fluent.conf or /etc/fluentd/fluent.conf
+<source>
+  @type your_input_type
+  # Other input configurations
+</source>
+
+<match your_tag>
+  @type elasticsearch
+  hosts your_elasticsearch_host:9200
+  index_name your_specific_index_name
+  include_tag_key true
+  tag_key @log_name
+</match>
+--------some setting for imp
+Replace your_input_type with the type of input you're using (e.g., tail for reading log files, forward for receiving logs from Fluentd forwarders, etc.).
+Replace your_tag with the tag that you want to match for the logs that should be sent to Elasticsearch.
+Set your_elasticsearch_host to the hostname or IP address of your Elasticsearch server.
+Set your_specific_index_name to the name of the index where you want the logs to be stored.
+Adjust other configuration options as needed based on your environment and requirements.
