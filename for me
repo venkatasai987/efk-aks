@@ -1,8 +1,21 @@
 es:
-cretes a es cluster with 3 nodes and one pod on each node .volumeMounts: Mounts volumes into the container.
+cretes a es cluster with 3 nodes and one pod on each node .volumeMounts: Mounts volumes into the container. (RWO) Permission
 initContainers: Specifies one or more containers to run before the main container(s) start. These containers are used for setting up necessary configurations before the Elasticsearch container starts.
 volumeClaimTemplates: Defines a template for volume claims that pods in the StatefulSet can use .to store data
 provision PersistentVolumes for each Pod managed by the StatefulSet (ex:storage: 1Gi each pod in StatefulSet will get 1Gi)
 They define a template for creating PersistentVolumeClaims (PVCs), which are then used to dynamically provision PersistentVolumes (PVs) as needed.
 ---------------
-fd:
+fd: run as DaemonSet and volumes,volumeMounts for storing data and mount in pods
+how it works: settingup env in containers
+*name:  FLUENT_ELASTICSEARCH_HOST
+value: "elasticsearch.default.svc.cluster.local"   ((FQDN) for the Elasticsearch, hostname of the Elasticsearch service where Fluentd should send logs.)
+elasticsearch is a service name here it will send logs pods linked to this service
+
+*means that Fluentd will not try to collect logs from systemd.
+  - name: FLUENTD_SYSTEMD_CONF
+            value: disable
+
+we can setup different types env based on our requirement
+volumeMounts: readOnly: true
+This is usually desirable for log collection purposes to prevent accidental modification of log files.
+------------------------
